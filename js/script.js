@@ -14,20 +14,20 @@ map.addLayer(augustLayer);
 map.addControl(L.mapbox.gridControl(augustLayer, {follow: true}));
 
 var tilelayers = {
-	'Aug. 2013 (Before HB 2)': L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14').addTo(map),
-    'March 2014': L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14_Now'),
-    'Sept. 2014 (With Surgical Center Rules)': L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14ASC')
+	"<div id='control-layer'><strong>Aug. 2013</strong> (Before HB 2)</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14').addTo(map),
+    "<div id='control-layer'><strong>March 2014</strong></div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14_Now'),
+    "<div id='control-layer'><strong>Sept. 2014</strong> (With Surgical Center Rules)</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14ASC')
 };
 
 L.control.layers(tilelayers, null, {collapsed: false, position: 'topleft'}).addTo(map);
 
 map.on('baselayerchange', function(e) {
-	if (e.name === 'Aug. 2013 (Before HB 2)') {
+	if (e.name === "<div id='control-layer'><strong>Aug. 2013</strong> (Before HB 2)</div>") {
 		map.removeLayer(nowLayer);
 		map.removeLayer(ascLayer);
 		map.addLayer(augustLayer);
 		map.addControl(L.mapbox.gridControl(augustLayer, {follow: true}));
-	} else if (e.name === 'March 2014') {
+	} else if (e.name === "<div id='control-layer'><strong>March 2014</strong></div>") {
 		map.removeLayer(augustLayer);
 		map.removeLayer(ascLayer);
 		map.addLayer(nowLayer);
