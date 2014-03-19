@@ -1,8 +1,18 @@
+
+var width = $(window).width();
+
+var mapZoom = 6;
+var mapCenter = [31.35, -99.64];
+
+if(width < 767) {
+  mapZoom = 5;
+}
 var map = L.mapbox.map('map', 'texastribune.map-9p13mpmk', {
     minZoom: 5,
     maxZoom: 11,
     scrollWheelZoom: false
-}).setView([31.35, -99.64], 6)
+}).setView(mapCenter, mapZoom);
+
 
 map.zoomControl.setPosition('topright');
 
@@ -14,20 +24,20 @@ map.addLayer(augustLayer);
 map.addControl(L.mapbox.gridControl(augustLayer, {follow: true}));
 
 var tilelayers = {
-	"<div id='control-layer'><strong>Aug. 2013</strong> (Before HB 2)</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14').addTo(map),
-    "<div id='control-layer'><strong>March 2014</strong></div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14_Now'),
-    "<div id='control-layer'><strong>Sept. 2014</strong> (With Surgical Center Rules)</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14ASC')
+	"<div class='control-layer'>Aug. 2013</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14').addTo(map),
+    "<div class='control-layer'>March 2014</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14_Now'),
+    "<div class='control-layer'>Sept. 2014</div>": L.mapbox.tileLayer('texastribune.AbortionFacilities3_17_14ASC')
 };
 
 L.control.layers(tilelayers, null, {collapsed: false, position: 'topleft'}).addTo(map);
 
 map.on('baselayerchange', function(e) {
-	if (e.name === "<div id='control-layer'><strong>Aug. 2013</strong> (Before HB 2)</div>") {
+	if (e.name === "<div class='control-layer'>Aug. 2013</div>") {
 		map.removeLayer(nowLayer);
 		map.removeLayer(ascLayer);
 		map.addLayer(augustLayer);
 		map.addControl(L.mapbox.gridControl(augustLayer, {follow: true}));
-	} else if (e.name === "<div id='control-layer'><strong>March 2014</strong></div>") {
+	} else if (e.name === "<div class='control-layer'>March 2014</div>") {
 		map.removeLayer(augustLayer);
 		map.removeLayer(ascLayer);
 		map.addLayer(nowLayer);
